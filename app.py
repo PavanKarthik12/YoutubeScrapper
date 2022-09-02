@@ -18,7 +18,7 @@ def index():
     if request.method == 'POST':
         try:
            channel_link=request.form['content']
-           search_download(channel_link,2)
+           search_download(channel_link,10)
            channel_title="".join(i for i in channel_link.split("/")[4] if i.isalnum())
            select_query=''' select * from {0}'''.format(channel_title)
            query_result=snowflake_connnect(select_query,'select')
