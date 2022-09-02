@@ -103,7 +103,7 @@ def fetch_image_titles(search_term,max_links_to_fetch,wd,sleep_between_interacti
             if load_more_button:
                 wd.execute_script("document.querySelector('.mye4qd').click();")
         results_start = len(thumbnail_results)
-
+    return " Data retrieved from selenium"
 def search_download(search_term,number_images,target_path='./images'):
     target_folder = os.path.join(target_path, '_'.join(search_term.lower().split(' ')))
     channel_name="".join(i for i in search_term.split("/")[4] if i.isalnum())
@@ -137,3 +137,4 @@ def search_download(search_term,number_images,target_path='./images'):
         insert_query='''INSERT INTO {0} VALUES('{1}','{2}','{3}','{4}','{5}')'''.format(channel_name,counter,title,link,likes,comments_count)
         counter+=1
         snowflake_connnect(insert_query)
+    return "Data Inserted to snowflake"
