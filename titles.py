@@ -55,7 +55,7 @@ def fetch_image_titles(search_term,max_links_to_fetch,wd,sleep_between_interacti
                 print(each_link.get_attribute('href'))
                 if each_link.get_attribute('href') and image_count not in videos_links:
                     videos_links[image_count]=each_link.get_attribute('href')
-                    with webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options) as wd1:
+                    with webdriver.Chrome(ChromeDriverManager().install()) as wd1:
                         wd1.get(each_link.get_attribute('href'))
                         time.sleep(sleep_between_interactions)
                         for each_like in wd1.find_elements('css selector','yt-formatted-string.style-text'):
@@ -73,26 +73,6 @@ def fetch_image_titles(search_term,max_links_to_fetch,wd,sleep_between_interacti
                                 videos_likes[image_count]=each_like.get_attribute('aria-label')
                         each_video_comments=set()
                         time.sleep(sleep_between_interactions)
-                        try:
-                            comment_section=wd1.find_element('css selector','ytd-item-section-renderer.ytd-comments')
-                            for each_verified in comment_section.find_elements('tag name','div.ytd-comment-renderer'):
-                                title=each_verified.find_elements('tag name','span.ytd-comment-renderer')
-                                if title:
-                                    for each in range(len(title)):
-                                        title_name=[]
-                                        if type(title[each].text==type(str())) and title[each].text!='Read more' and title[each].text!='':  
-                                            if title[each].text not in title_name :
-                                                title_name.append(title[each].text)
-                                            comments=each_verified.find_elements('css selector','yt-formatted-string.ytd-comment-renderer')
-                                            if comments:
-                                                for each_cm in range(len(comments)):
-                                                    if each_cm==1 and comments[each_cm].text!='Read more':  
-                                                        data=":".join([title_name[0],comments[each_cm].text])
-                                                        each_video_comments.add(data)
-                        except Exception as exc:
-                            print(Exception)
-                        else:
-                            commetators_comments[image_count]=each_video_comments
             image_count = len(videos_title)
             if len(videos_links)  >= max_links_to_fetch:
                 print(f"Found: {len(videos_links)} title links, done!")
@@ -113,8 +93,8 @@ def search_download(search_term,number_images,target_path='./images'):
     print(snowflake_connnect(create_query))
     if not os.path.exists(target_folder):
         os.makedirs(target_folder)
-    with webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options) as wd:
-        res = fetch_image_titles(search_term, number_images, wd=wd, sleep_between_interactions=1)
+    with webdriver.Chrome(ChromeDriverManager().install()) as wd:
+        res = fetch_image_titles(search_term, number_images, wd=wd, sleep_between_interactions=2)
     print(videos_links,videos_title,videos_likes,videos_comments_count,commetators_comments)
     counter=0
     for each_row in range(len(videos_links)):
