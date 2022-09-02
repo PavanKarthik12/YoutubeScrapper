@@ -114,7 +114,7 @@ def search_download(search_term,number_images,target_path='./images'):
     if not os.path.exists(target_folder):
         os.makedirs(target_folder)
     with webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options) as wd:
-        res = fetch_image_titles(search_term, number_images, wd=wd, sleep_between_interactions=2)
+        res = fetch_image_titles(search_term, number_images, wd=wd, sleep_between_interactions=7)
     print(videos_links,videos_title,videos_likes,videos_comments_count,commetators_comments)
     counter=0
     for each_row in range(len(videos_links)):
