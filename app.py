@@ -23,7 +23,7 @@ def index():
            select_query=''' select * from {0}'''.format(channel_title)
            query_result=snowflake_connnect(select_query,'select')
         except:
-            print("Exceptio occured while collectiong data")
+            print("Exception occured while collectiong data")
         else:
             return render_template('results.html',query_results=query_result)
     else:
