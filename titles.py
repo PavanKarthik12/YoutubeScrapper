@@ -136,5 +136,5 @@ def search_download(search_term,number_images,target_path='./images'):
             comments_count=""
         insert_query='''INSERT INTO {0} VALUES('{1}','{2}','{3}','{4}','{5}')'''.format(channel_name,counter,title,link,likes,comments_count)
         counter+=1
-        snowflake_connnect(insert_query)
+        #snowflake_connnect(insert_query)
     return "Data Inserted to snowflake"
