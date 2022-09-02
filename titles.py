@@ -133,4 +133,3 @@ def search_download(search_term,number_images,target_path='./images'):
         counter+=1
         snowflake_connnect(insert_query)
 
-if __name__ == "__main__":
