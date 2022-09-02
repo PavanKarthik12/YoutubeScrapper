@@ -14,5 +14,4 @@ Werkzeug==1.0.1
 idna==2.10
 certifi==2020.6.20
 chardet==3.0.4
-Jinja2==2.11.2
 
