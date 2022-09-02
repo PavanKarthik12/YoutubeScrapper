@@ -5,6 +5,11 @@ from selenium import webdriver
 import snowflake.connector
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup as bs
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
 videos_title={}
 videos_links={}
 videos_likes={}
@@ -50,7 +55,7 @@ def fetch_image_titles(search_term,max_links_to_fetch,wd,sleep_between_interacti
                 print(each_link.get_attribute('href'))
                 if each_link.get_attribute('href') and image_count not in videos_links:
                     videos_links[image_count]=each_link.get_attribute('href')
-                    with webdriver.Chrome(ChromeDriverManager().install()) as wd1:
+                    with webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options) as wd1:
                         wd1.get(each_link.get_attribute('href'))
                         time.sleep(sleep_between_interactions)
                         for each_like in wd1.find_elements('css selector','yt-formatted-string.style-text'):
@@ -108,7 +113,7 @@ def search_download(search_term,number_images,target_path='./images'):
     print(snowflake_connnect(create_query))
     if not os.path.exists(target_folder):
         os.makedirs(target_folder)
-    with webdriver.Chrome(ChromeDriverManager().install()) as wd:
+    with webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options) as wd:
         res = fetch_image_titles(search_term, number_images, wd=wd, sleep_between_interactions=2)
     print(videos_links,videos_title,videos_likes,videos_comments_count,commetators_comments)
     counter=0
