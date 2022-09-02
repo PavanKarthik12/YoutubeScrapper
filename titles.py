@@ -83,7 +83,7 @@ def fetch_image_titles(search_term,max_links_to_fetch,wd,sleep_between_interacti
             if load_more_button:
                 wd.execute_script("document.querySelector('.mye4qd').click();")
         results_start = len(thumbnail_results)
-        return "none"
+    return "none"
 
 def search_download(search_term,number_images,target_path='./images'):
     target_folder = os.path.join(target_path, '_'.join(search_term.lower().split(' ')))
