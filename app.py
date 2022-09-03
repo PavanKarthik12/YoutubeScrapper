@@ -19,7 +19,7 @@ def index():
     if request.method == 'POST':
         try:
             channel_link=request.form['content']
-            print(search_download(channel_link,2))
+            print(search_download(channel_link,1))
             channel_title="".join(i for i in channel_link.split("/")[4] if i.isalnum())
             counter=0
             for each_row in range(len(videos_links)):
